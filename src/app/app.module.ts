@@ -9,6 +9,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
+import { ToastrModule } from 'ngx-toastr'
+import { MatIconModule } from '@angular/material/icon';
+
 
 @NgModule({
   declarations: [
@@ -23,6 +26,8 @@ import { HomeComponent } from './home/home.component';
     MaterialModule,
     ReactiveFormsModule,
     HttpClientModule,
+    ToastrModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

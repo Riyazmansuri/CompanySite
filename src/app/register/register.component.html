@@ -1,7 +1,7 @@
 <div class="parent-div">
     <div class="child-div center-content">
         <div class="row first-child">
-            <div class="col-12 row center-content vertical-spacing" style="padding-left: 20px;
+            <div class="col-sm-12 row center-content vertical-spacing" style="padding-left: 20px;
             padding-right: 5px;">
                 <div class="center-content">
                     <h3>Logo</h3>
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="col-12 vertical-spacing">
-                <form>
+                <form [formGroup]="registerForm">
                     <div class="form-group vertical-spacing d-flex align-items-center border"
                         style="border-radius: 12px;">
                         <!-- <i class="fa-light fa-envelope" style="padding-left: 10px; padding-right: 10px;"></i> -->
@@ -28,7 +28,7 @@
                             style="padding-left: 5px; padding-right: 5px; width: 25px;">
                         <span class="vr align-items-center"
                             style="align-items: center; margin-top: 5px; margin-bottom: 5px; margin-left: 5px;"></span>
-                        <input type="email" class="form-control border-0"
+                        <input type="email" class="form-control border-0" formControlName="email"
                             style="outline: none; padding-left: 10px; flex: 1; box-shadow: none;" id="email"
                             placeholder="Email address">
                     </div>
@@ -40,7 +40,8 @@
                             style="padding-left: 5px; padding-right: 5px; width: 25px;">
                         <span class="vr align-items-center"
                             style="align-items: center; margin-top: 5px; margin-bottom: 5px; margin-left: 5px;"></span>
-                        <input type="password" class="form-control border-0" [type]="showPassword ? 'text' : 'password'"
+                        <input type="password" class="form-control border-0" formControlName="password"
+                            [type]="showPassword ? 'text' : 'password'"
                             style="outline: none; padding-left: 10px; flex: 1; box-shadow: none;" id="password"
                             placeholder="Password">
                         <!-- <i class="fa-duotone fa-eye" style="padding-right: 10px;"></i> -->
@@ -55,17 +56,19 @@
                         <span class="vr align-items-center"
                             style="align-items: center; margin-top: 5px; margin-bottom: 5px; margin-left: 5px;"></span>
                         <input type="password" class="form-control border-0"
+                            [type]="showConfirmPassword ? 'text' : 'password'"
                             style="outline: none; padding-left: 10px; flex: 1; box-shadow: none;" id="confirm-password"
                             placeholder="Confirm Password">
                         <img src="../../assets/eye (1).svg" alt="show" style="padding-left: 5px; padding-right: 5px; width: 28px;
-                            margin-right: 10px;" (click)="showPassword = !showPassword">
+                            margin-right: 10px;" (click)="showConfirmPassword = !showConfirmPassword">
                     </div>
 
                     <div *ngIf="!isRegisterMode" class="form-group forgot-password vertical-spacing">
                         <a style="text-decoration: none; color: black;" href="#">Forgot Password?</a>
                     </div>
-                    <button type="submit" class="btn btn-primary vertical-spacing">{{ isRegisterMode ? 'Register' :
-                        'Login' }}</button>
+                    <button type="submit" class="btn btn-primary vertical-spacing" (click)="proceedRegistration()">
+                        {{ isRegisterMode ? 'Register' :'Login' }}
+                    </button>
                 </form>
                 <div style="text-align: center;" class="or-divider vertical-spacing">
                     <hr>
