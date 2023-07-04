@@ -71,7 +71,7 @@ export class RegisterComponent {
   proceedRegistration() {
     if (this.isRegisterMode && this.registerForm.valid) {
       const email = this.registerForm.get('email')?.value;
-  
+      console.log(email);
       if (email) {
         this.service.checkEmailExists(email).subscribe(exists => {
           if (exists) {
@@ -88,7 +88,7 @@ export class RegisterComponent {
     } else if (!this.isRegisterMode && this.registerForm.controls.email.valid && this.registerForm.controls.password.valid) {
       const email = this.registerForm.value.email;
       const password = this.registerForm.value.password;
-  
+
       if (email && password) {
         this.service.proceedLogin(email, password).subscribe(res => {
           if (res) {
@@ -108,8 +108,8 @@ export class RegisterComponent {
       console.log(this.registerForm.valid);
     }
   }
-  
-  
+
+
 
   resetForm() {
     this.registerForm.reset(); // Reset the form

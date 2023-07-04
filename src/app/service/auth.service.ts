@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, of } from 'rxjs';
+import { Observable, catchError, map, of, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -31,15 +31,20 @@ export class AuthService {
   }
 
 
-  proceedRegister(inputData: any, role: string) {
+  proceedRegister(inputData: any, role: string): Observable<boolean> {
     const { email, password } = inputData;
     const userData = { email, password, role: role };
-    return this.http.post(this.apiUrl, userData)
+
+    return this.http.post(this.apiUrl, userData).pipe(
+      switchMap(() => this.checkEmailExists(email)),
+      catchError(() => of(false))
+    );
   }
+
 
   proceedLogin(email: string, password: string): Observable<any> {
     const loginData = { email, password };
-    return this.http.post(`${this.apiUrl}/login`, loginData).pipe(
+    return this.http.post(`${this.apiUrl}`, loginData).pipe(
       catchError((error) => {
         console.error('Login failed', error);
         return of(null); // Return null if login fails
