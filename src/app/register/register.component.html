@@ -1,97 +1,126 @@
-<div class="parent-div">
-    <div class="child-div center-content">
-        <div class="row first-child">
-            <div class="col-sm-12 row center-content vertical-spacing" style="padding-left: 20px;
-            padding-right: 5px;">
-                <div class="center-content">
+<div class="container-fluid parent">
+    <div class="row h-100 ">
+        <div class="col-sm-12 col-md-6">
+            <div class="row justify-content-center align-items-center h-100">
+                <div class="col-7 textLogo">
                     <h3>Logo</h3>
-                </div>
-                <div class="center-content select-role vertical-spacing button-group" style="padding-left: 2px; padding-right: 2px; padding-bottom: 1px;
+
+                    <div class="center-content select-role vertical-spacing button-group" style="padding-left: 2px; padding-right: 2px; padding-bottom: 1px;
                         padding-top: 1px;">
-                    <button class="btn" [ngClass]="{ 'active': employeeActive }" (click)="selectRole('employee')">
-                        Employee
-                    </button>
-                    <button class="btn" [ngClass]="{ 'active': consultantActive }" (click)="selectRole('consultant')">
-                        Consultant
-                    </button>
-                </div>
-                <div class="center-content">
-                    <h2>{{ isRegisterMode ? 'Register' : 'Log In' }}</h2>
-                </div>
-            </div>
-            <div class="col-12 vertical-spacing">
-                <form [formGroup]="registerForm">
-                    <div class="form-group vertical-spacing d-flex align-items-center border"
-                        style="border-radius: 12px;">
-                        <!-- <i class="fa-light fa-envelope" style="padding-left: 10px; padding-right: 10px;"></i> -->
-                        <img src="../../assets/envelope (1).svg" alt="email"
-                            style="padding-left: 5px; padding-right: 5px; width: 25px;">
-                        <span class="vr align-items-center"
-                            style="align-items: center; margin-top: 5px; margin-bottom: 5px; margin-left: 5px;"></span>
-                        <input type="email" class="form-control border-0" formControlName="email"
-                            style="outline: none; padding-left: 10px; flex: 1; box-shadow: none;" id="email"
-                            placeholder="Email address">
+                        <button class="btn" [ngClass]="{ 'active': employeeActive }" (click)="selectRole('employee')">
+                            Employer
+                        </button>
+                        <button class="btn" [ngClass]="{ 'active': consultantActive }"
+                            (click)="selectRole('consultant')">
+                            Consultant
+                        </button>
+                    </div>
+                    <div class="center-content">
+                        <h2>{{ isRegisterMode ? 'Register' : 'Log In' }}</h2>
                     </div>
 
-                    <div class="form-group vertical-spacing d-flex align-items-center border"
-                        style="border-radius: 12px;">
-                        <!-- <i class="fa-light fa-lock" style="padding-left: 10px; padding-right: 10px;"></i> -->
-                        <img src="../../assets/lock.svg" alt="lock"
-                            style="padding-left: 5px; padding-right: 5px; width: 25px;">
-                        <span class="vr align-items-center"
-                            style="align-items: center; margin-top: 5px; margin-bottom: 5px; margin-left: 5px;"></span>
-                        <input type="password" class="form-control border-0" formControlName="password"
-                            [type]="showPassword ? 'text' : 'password'"
-                            style="outline: none; padding-left: 10px; flex: 1; box-shadow: none;" id="password"
-                            placeholder="Password">
-                        <!-- <i class="fa-duotone fa-eye" style="padding-right: 10px;"></i> -->
-                        <img src="../../assets/eye (1).svg" alt="show" style="padding-left: 5px; padding-right: 5px; width: 28px;
-                            margin-right: 10px;" (click)="showPassword = !showPassword">
-                    </div>
+                    <div class="col-12 vertical-spacing">
+                        <form [formGroup]="registerForm">
+                            <div class="vertical-spacing">
+                                <div class="form-group  d-flex align-items-center border round-border"
+                                    [ngClass]="{ 'has-error': registerForm.get('email')?.invalid && registerForm.get('email')?.touched }">
+                                    <img src="../../assets/envelope (1).svg" alt="email"
+                                        style="padding-left: 5px; padding-right: 5px; width: 25px;">
+                                    <span class="vr align-items-center"
+                                        style="align-items: center; margin-top: 5px; margin-bottom: 5px; margin-left: 5px;"></span>
+                                    <input type="email" class="form-control border-0" formControlName="email"
+                                        style="outline: none; padding-left: 10px; flex: 1; box-shadow: none;" id="email"
+                                        placeholder="Email address">
+                                </div>
+                                <!-- Display email validation error message -->
+                                <span *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+                                    class="text-danger" style="margin-top: 5px;">
+                                    Please enter a valid email address.
+                                </span>
+                            </div>
 
-                    <div *ngIf="isRegisterMode" class="form-group vertical-spacing d-flex align-items-center border"
-                        style="border-radius: 12px;">
-                        <img src="../../assets/lock.svg" alt="lock"
-                            style="padding-left: 5px; padding-right: 5px; width: 25px;">
-                        <span class="vr align-items-center"
-                            style="align-items: center; margin-top: 5px; margin-bottom: 5px; margin-left: 5px;"></span>
-                        <input type="password" class="form-control border-0"
-                            [type]="showConfirmPassword ? 'text' : 'password'"
-                            style="outline: none; padding-left: 10px; flex: 1; box-shadow: none;" id="confirm-password"
-                            placeholder="Confirm Password">
-                        <img src="../../assets/eye (1).svg" alt="show" style="padding-left: 5px; padding-right: 5px; width: 28px;
-                            margin-right: 10px;" (click)="showConfirmPassword = !showConfirmPassword">
-                    </div>
+                            <!-- Password input -->
+                            <div class="vertical-spacing">
+                                <div class="form-group d-flex align-items-center border round-border"
+                                    [ngClass]="{ 'has-error': registerForm.get('password')?.invalid && registerForm.get('password')?.touched }">
+                                    <img src="../../assets/lock.svg" alt="lock"
+                                        style="padding-left: 5px; padding-right: 5px; width: 25px;">
+                                    <span class="vr align-items-center"
+                                        style="align-items: center; margin-top: 5px; margin-bottom: 5px; margin-left: 5px;"></span>
+                                    <input type="password" class="form-control border-0" formControlName="password"
+                                        [type]="showPassword ? 'text' : 'password'"
+                                        style="outline: none; padding-left: 10px; flex: 1; box-shadow: none;"
+                                        id="password" placeholder="Password">
+                                    <img src="../../assets/eye (1).svg" alt="show"
+                                        style="padding-left: 5px; padding-right: 5px; width: 28px; margin-right: 10px;"
+                                        (click)="togglePasswordVisibility()">
+                                </div>
+                                <!-- Display password validation error message -->
+                                <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+                                    class="text-danger" style="margin-top: 5px;">
+                                    Password must be 8-16 characters long and contain at least one lowercase letter, one
+                                    uppercase letter, one digit, and one special character.
+                                </div>
+                            </div>
 
-                    <div *ngIf="!isRegisterMode" class="form-group forgot-password vertical-spacing">
-                        <a style="text-decoration: none; color: black;" href="#">Forgot Password?</a>
-                    </div>
-                    <button type="submit" class="btn btn-primary vertical-spacing" (click)="proceedRegistration()">
-                        {{ isRegisterMode ? 'Register' :'Login' }}
-                    </button>
-                </form>
-                <div style="text-align: center;" class="or-divider vertical-spacing">
-                    <hr>
-                    <p style="padding-right: 4px;
+                            <!-- Confirm password input (only in register mode) -->
+                            <div class="vertical-spacing ">
+                                <div *ngIf="isRegisterMode"
+                                    class="form-group d-flex align-items-center border round-border"
+                                    [ngClass]="{ 'has-error': registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched }">
+                                    <img src="../../assets/lock.svg" alt="lock"
+                                        style="padding-left: 5px; padding-right: 5px; width: 25px;">
+                                    <span class="vr align-items-center"
+                                        style="align-items: center; margin-top: 5px; margin-bottom: 5px; margin-left: 5px;"></span>
+                                    <input type="password" class="form-control border-0"
+                                        formControlName="confirmPassword"
+                                        [type]="showConfirmPassword ? 'text' : 'password'"
+                                        style="outline: none; padding-left: 10px; flex: 1; box-shadow: none;"
+                                        id="confirm-password" placeholder="Confirm Password">
+                                    <img src="../../assets/eye (1).svg" alt="show"
+                                        style="padding-left: 5px; padding-right: 5px; width: 28px; margin-right: 10px;"
+                                        (click)="toggleConfirmPasswordVisibility()">
+                                </div>
+                                <!-- Display confirm password validation error message -->
+                                <div *ngIf="isRegisterMode && registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched"
+                                    class="text-danger" style="margin-top: 5px;">
+                                    Passwords do not match.
+                                </div>
+                            </div>
+
+                            <div *ngIf="!isRegisterMode" class="form-group forgot-password vertical-spacing">
+                                <a style="text-decoration: none; color: black;" href="#">Forgot Password?</a>
+                            </div>
+                            <button type="submit" class="btn btn-primary vertical-spacing"
+                                (click)="proceedRegistration()">
+                                {{ isRegisterMode ? 'Register' :'Login' }}
+                            </button>
+                        </form>
+                        <div style="text-align: center;" class="or-divider vertical-spacing">
+                            <hr>
+                            <p style="padding-right: 4px;
                     padding-top: 12px;
                     padding-left: 4px;">OR</p>
-                    <hr>
-                </div>
-                <div class="social-icons vertical-spacing">
-                    <img src="../../assets/Group 35789.png" alt="Google">
-                    <img src="../../assets/Group 35790@2x.png" alt="Facebook">
-                    <img src="../../assets/Group 35791.png" alt="Apple">
-                </div>
-                <div style="text-align: center; display: flex; justify-content: center;">
-                    <p>{{ isRegisterMode ? 'Already have an account?' : 'Create new account?' }}</p>&nbsp;
-                    <a style="text-decoration: none; color: #F9342E;" href="#" (click)="toggleMode()">{{ isRegisterMode
-                        ? 'Login' : 'Register' }}</a>
+                            <hr>
+                        </div>
+                        <div class="social-icons vertical-spacing">
+                            <img src="../../assets/Group 35789.png" alt="Google">
+                            <img src="../../assets/Group 35790@2x.png" alt="Facebook">
+                            <img src="../../assets/Group 35791.png" alt="Apple">
+                        </div>
+                        <div style="text-align: center; display: flex; justify-content: center;">
+                            <p>{{ isRegisterMode ? 'Already have an account?' : 'Create new account?' }}</p>&nbsp;
+                            <a style="text-decoration: none; color: #F9342E;" href="#" (click)="toggleMode()">{{
+                                isRegisterMode
+                                ? 'Login' : 'Register' }}</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="child-div">
-        <img src="../../assets/registerPageImg.png" alt="Group Image" style="max-width: 100%; max-height: 100%; "
-            class="img-fluid">
+        <div class="col-md-6 d-none d-md-block p-0">
+            <img [src]="employeeActive ? '../../assets/EmployeeRegister.png' : '../../assets/ConsultantRegister.png'"
+                alt="Group Image" class="w-100 h-100">
+        </div>
     </div>
 </div>

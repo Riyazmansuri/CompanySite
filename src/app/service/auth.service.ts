@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class AuthService {
 
   }
 
-  apiUrl = ' http://localhost:3000/user'
+  apiUrl = ' http://localhost:8080/users'
   GetAll() {
     return this.http.get(this.apiUrl);
   }
@@ -36,6 +36,17 @@ export class AuthService {
     const userData = { email, password, role: role };
     return this.http.post(this.apiUrl, userData)
   }
+
+  proceedLogin(email: string, password: string): Observable<any> {
+    const loginData = { email, password };
+    return this.http.post(`${this.apiUrl}/login`, loginData).pipe(
+      catchError((error) => {
+        console.error('Login failed', error);
+        return of(null); // Return null if login fails
+      })
+    );
+  }
+
 
   IsLoggedIn() {
     return sessionStorage.getItem('email') != null;

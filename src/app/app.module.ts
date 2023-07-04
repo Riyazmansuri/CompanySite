@@ -26,7 +26,7 @@ import { MatIconModule } from '@angular/material/icon';
     MaterialModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ToastrModule,
+    ToastrModule.forRoot(),
     MatIconModule
   ],
   providers: [],
